@@ -1,0 +1,79 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <title>Microservices Shop</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+</head>
+<body>
+    <div class="container">
+        <h1>Microservices Shop</h1>
+        <p>Фронтенд, который обращается к отдельным микросервисам.</p>
+
+        <section>
+            <h2>Пользователи (Users Service)</h2>
+            <form id="user-form">
+                <input type="text" id="user-name" placeholder="Имя" required />
+                <input type="email" id="user-email" placeholder="Email" required />
+                <button type="submit">Создать пользователя</button>
+            </form>
+            <button id="load-users">Загрузить пользователей</button>
+            <pre id="users-output"></pre>
+        </section>
+
+        <section>
+            <h2>Товары (Products Service)</h2>
+            <form id="product-form">
+                <input type="text" id="product-name" placeholder="Название" required />
+                <input type="number" id="product-price" placeholder="Цена" step="0.01" required />
+                <button type="submit">Создать товар</button>
+            </form>
+            <button id="load-products">Загрузить товары</button>
+            <pre id="products-output"></pre>
+        </section>
+
+        <section>
+            <h2>Заказы (Orders Service)</h2>
+            <form id="order-form">
+                <input type="number" id="order-user-id" placeholder="ID пользователя" required />
+                <input type="text" id="order-product-ids" placeholder="ID товаров через запятую" required />
+                <input type="number" id="order-total" placeholder="Сумма заказа" step="0.01" required />
+                <button type="submit">Создать заказ</button>
+            </form>
+            <button id="load-orders">Загрузить заказы</button>
+            <pre id="orders-output"></pre>
+        </section>
+
+        <section>
+            <h2>Склад (Inventory Service)</h2>
+            <button id="load-inventory">Загрузить склад</button>
+            <pre id="inventory-output"></pre>
+        </section>
+
+        <section>
+            <h2>Платежи (Payments Service)</h2>
+            <form id="payment-form">
+                <input type="number" id="payment-order-id" placeholder="ID заказа" required />
+                <input type="number" id="payment-amount" placeholder="Сумма" step="0.01" required />
+                <input type="text" id="payment-method" placeholder="Метод (card, cash...)" required />
+                <button type="submit">Оплатить</button>
+            </form>
+            <pre id="payments-output"></pre>
+        </section>
+
+        <section>
+            <h2>Уведомления (Notifications Service)</h2>
+            <form id="notification-form">
+                <input type="email" id="notification-recipient" placeholder="Получатель" required />
+                <input type="text" id="notification-message" placeholder="Сообщение" required />
+                <button type="submit">Отправить</button>
+            </form>
+            <button id="load-notifications">Загрузить уведомления</button>
+            <pre id="notifications-output"></pre>
+        </section>
+    </div>
+
+    <script src="/static/main.js"></script>
+</body>
+</html>
