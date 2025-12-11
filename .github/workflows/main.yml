@@ -1,4 +1,4 @@
-name: Build and Test Microservices
+name: Test Microservices
 
 on:
   push:
@@ -26,8 +26,6 @@ jobs:
           pip install -r inventory_service/requirements.txt
           pip install -r payments_service/requirements.txt
           pip install -r notifications_service/requirements.txt
-
-      # ---- ВОТ ЭТИ ШАГИ ГЛАВНЫЕ ----
 
       - name: Run users_service tests
         working-directory: users_service
