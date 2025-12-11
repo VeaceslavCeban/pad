@@ -27,21 +27,28 @@ jobs:
           pip install -r payments_service/requirements.txt
           pip install -r notifications_service/requirements.txt
 
-      - name: Fix PYTHONPATH for GitHub Actions
-        run: |
-          export PYTHONPATH="$PYTHONPATH:$(pwd)/users_service"
-          export PYTHONPATH="$PYTHONPATH:$(pwd)/products_service"
-          export PYTHONPATH="$PYTHONPATH:$(pwd)/orders_service"
-          export PYTHONPATH="$PYTHONPATH:$(pwd)/inventory_service"
-          export PYTHONPATH="$PYTHONPATH:$(pwd)/payments_service"
-          export PYTHONPATH="$PYTHONPATH:$(pwd)/notifications_service"
-          echo "PYTHONPATH fixed"
+      # ---- ВОТ ЭТИ ШАГИ ГЛАВНЫЕ ----
 
-      - name: Run tests
-        run: |
-          pytest users_service/tests
-          pytest products_service/tests
-          pytest orders_service/tests
-          pytest inventory_service/tests
-          pytest payments_service/tests
-          pytest notifications_service/tests
+      - name: Run users_service tests
+        working-directory: users_service
+        run: pytest
+
+      - name: Run products_service tests
+        working-directory: products_service
+        run: pytest
+
+      - name: Run orders_service tests
+        working-directory: orders_service
+        run: pytest
+
+      - name: Run inventory_service tests
+        working-directory: inventory_service
+        run: pytest
+
+      - name: Run payments_service tests
+        working-directory: payments_service
+        run: pytest
+
+      - name: Run notifications_service tests
+        working-directory: notifications_service
+        run: pytest
