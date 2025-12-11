@@ -1,11 +1,12 @@
-name: Test Microservices
+name: CI Pipeline
 
 on:
   push:
   pull_request:
 
 jobs:
-  test:
+  tests:
+    name: Run unit tests for all microservices
     runs-on: ubuntu-latest
 
     steps:
@@ -17,7 +18,7 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: Install dependencies for all services
+      - name: Install dependencies for tests
         run: |
           pip install --upgrade pip
           pip install -r users_service/requirements.txt
@@ -50,3 +51,34 @@ jobs:
       - name: Run notifications_service tests
         working-directory: notifications_service
         run: pytest
+
+
+  build:
+    name: Build Docker images
+    runs-on: ubuntu-latest
+    needs: tests     # билд запускается только если тесты прошли
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Build Users Service
+        run: docker build -t users_service:latest users_service/
+
+      - name: Build Products Service
+        run: docker build -t products_service:latest products_service/
+
+      - name: Build Orders Service
+        run: docker build -t orders_service:latest orders_service/
+
+      - name: Build Inventory Service
+        run: docker build -t inventory_service:latest inventory_service/
+
+      - name: Build Payments Service
+        run: docker build -t payments_service:latest payments_service/
+
+      - name: Build Notifications Service
+        run: docker build -t notifications_service:latest notifications_service/
