@@ -1,0 +1,37 @@
+name: Build and Test Microservices
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies for all services
+        run: |
+          pip install --upgrade pip
+          pip install -r users_service/requirements.txt
+          pip install -r products_service/requirements.txt
+          pip install -r orders_service/requirements.txt
+          pip install -r inventory_service/requirements.txt
+          pip install -r payments_service/requirements.txt
+          pip install -r notifications_service/requirements.txt
+
+      - name: Run tests
+        run: |
+          pytest users_service/tests
+          pytest products_service/tests
+          pytest orders_service/tests
+          pytest inventory_service/tests
+          pytest payments_service/tests
+          pytest notifications_service/tests
