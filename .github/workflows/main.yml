@@ -12,7 +12,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Set up Python
+      - name: Setup Python
         uses: actions/setup-python@v4
         with:
           python-version: "3.11"
@@ -26,6 +26,16 @@ jobs:
           pip install -r inventory_service/requirements.txt
           pip install -r payments_service/requirements.txt
           pip install -r notifications_service/requirements.txt
+
+      - name: Fix PYTHONPATH for GitHub Actions
+        run: |
+          export PYTHONPATH="$PYTHONPATH:$(pwd)/users_service"
+          export PYTHONPATH="$PYTHONPATH:$(pwd)/products_service"
+          export PYTHONPATH="$PYTHONPATH:$(pwd)/orders_service"
+          export PYTHONPATH="$PYTHONPATH:$(pwd)/inventory_service"
+          export PYTHONPATH="$PYTHONPATH:$(pwd)/payments_service"
+          export PYTHONPATH="$PYTHONPATH:$(pwd)/notifications_service"
+          echo "PYTHONPATH fixed"
 
       - name: Run tests
         run: |
